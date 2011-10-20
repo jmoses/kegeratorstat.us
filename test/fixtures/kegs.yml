@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  keg_type_id: 1
+  kegerator_id: 1
+  beer_name: MyString
+
+two:
+  keg_type_id: 1
+  kegerator_id: 1
+  beer_name: MyString
