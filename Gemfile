@@ -7,6 +7,8 @@ gem 'rails', '3.1.1'
 
 gem 'mysql2'
 gem 'devise'
+gem 'haml'
+gem 'inherited_resources'
 
 
 # Gems used only for assets and not required

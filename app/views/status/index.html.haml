@@ -1,0 +1,6 @@
+%h2 Recent Additions
+
+%ul
+  - @kegs.each do |keg|
+    %li #{keg.user.email} added a #{keg.keg_type.name} of #{keg.beer_name}
+
