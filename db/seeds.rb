@@ -13,7 +13,7 @@
   [7.75, "Quarter Barrel / Pony"],
   [15.5, "Half Barrel / Full Keg"]
 ].each do |capacity, name| 
-  KegType.create(:name => name, :capcity_in_gallons => capacity)
+  KegType.create(:name => name, :capacity_in_gallons => capacity)
 end
 
 {
