@@ -13,4 +13,19 @@
           = yield
 
         .four.columns
-          Sidebar
+          %h3 Sidebar
+          - if user_signed_in?
+            %ul
+              %li= link_to "Kegerators", kegerators_path
+              %li= link_to "Logout", destroy_user_session_path, :method => :delete
+          - else
+            = form_tag user_session_path do
+              = label_tag "Email"
+              = text_field_tag 'user[email]', '', :class => 'small input-text'
+              = label_tag "Password"
+              = password_field_tag 'user[password]', '', :class => "small input-text"
+              %button Sign in
+              %ul
+                %li= link_to "Forgot your password?", new_password_path('user')
+                %li= link_to "Signup!", new_user_registration_path
+                        

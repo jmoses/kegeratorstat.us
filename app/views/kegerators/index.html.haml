@@ -1,4 +1,6 @@
-%h2 Your Kegerators
+%h2 
+  Your Kegerators
+  = link_to "add one", new_kegerator_path
 
 %ul
   - @kegerators.each do |kegerator|
@@ -7,10 +9,23 @@
       = link_to "Add a keg!", new_kegerator_keg_path(kegerator)
 
       %ul#kegs
-        - kegerator.kegs.each do |keg|
+        - if kegerator.kegs.not_finished.size.zero?
+          %li
+            %strong NO BEER? WHAT?!?
+        - kegerator.kegs.not_finished.each do |keg|
           %li
             = "A #{keg.keg_type.name} of #{keg.beer} (#{keg.added_at})"
             = link_to_function "stuff", '$(this).next(".links").toggle()'
             .links{:style => "display: none;"}
               = link_to "destroy", kegerator_keg_path(kegerator, keg), :method => :delete, :confirm => "Are you sure you didn't just finish it?", :class => "nice small radius red button"
-              = link_to "finished!", kegerator_keg_path(kegerator, keg), :method => :delete, :class => "nice small radius black button"
+              = link_to "finished!", '#', :class => "nice small radius black button", :"data-reveal-id" => dom_id(keg, 'finished')
+            .reveal-modal{:id => dom_id(keg, 'finished')}
+              %a.close-reveal-modal &#215;
+
+              = form_for [kegerator, keg] do |form|
+                = form.label :finished_at
+                = form.date_select :finished_at
+                = form.submit "It's empty :("
+
+        - kegerator.kegs.finished.each do |keg|
+          %li= "A #{keg.keg_type.name} of #{keg.beer} was finished on #{keg.finished_at}"

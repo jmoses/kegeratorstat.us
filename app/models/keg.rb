@@ -7,6 +7,13 @@ class Keg < ActiveRecord::Base
 
   before_save :set_added_at
 
+  scope :finished, where("finished_at IS NOT NULL")
+  scope :not_finished, where("finished_at IS NULL")
+
+  def finished?
+    finished_at.present?
+  end
+
   protected
     def set_added_at
       self.added_at = Time.now unless added_at.present?
