@@ -10,7 +10,7 @@
         - kegerator.kegs.each do |keg|
           %li
             = "A #{keg.keg_type.name} of #{keg.beer} (#{keg.added_at})"
-            (
-            = link_to "destroy", kegerator_keg_path(kegerator, keg), :method => :delete, :confirm => "Are you sure you didn't just finish it?"
-            = link_to "finished!", kegerator_keg_path(kegerator, keg), :method => :delete
-            )
+            = link_to_function "stuff", '$(this).next(".links").toggle()'
+            .links{:style => "display: none;"}
+              = link_to "destroy", kegerator_keg_path(kegerator, keg), :method => :delete, :confirm => "Are you sure you didn't just finish it?", :class => "nice small radius red button"
+              = link_to "finished!", kegerator_keg_path(kegerator, keg), :method => :delete, :class => "nice small radius black button"
