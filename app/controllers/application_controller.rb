@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   protected
     def http_auth
-      authenticate_with_request_or_http_digest("Application") do |name|
+      authenticate_with_request_or_http_basic("Application") do |name|
         {
           "jmoses" => "sesom3"
         }[name]
