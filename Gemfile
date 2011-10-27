@@ -9,6 +9,7 @@ gem 'mysql2'
 gem 'devise'
 gem 'haml'
 gem 'inherited_resources'
+gem 'zurb-foundation'
 
 
 # Gems used only for assets and not required
