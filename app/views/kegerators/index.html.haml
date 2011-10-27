@@ -2,4 +2,15 @@
 
 %ul
   - @kegerators.each do |kegerator|
-    %li= kegerator.name
+    %li
+      = kegerator.name
+      = link_to "Add a keg!", new_kegerator_keg_path(kegerator)
+
+      %ul#kegs
+        - kegerator.kegs.each do |keg|
+          %li
+            = "A #{keg.keg_type.name} of #{keg.beer} (#{keg.added_at})"
+            (
+            = link_to "destroy", kegerator_keg_path(kegerator, keg), :method => :delete, :confirm => "Are you sure you didn't just finish it?"
+            = link_to "finished!", kegerator_keg_path(kegerator, keg), :method => :delete
+            )

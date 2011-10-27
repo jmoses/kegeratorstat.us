@@ -1,0 +1,13 @@
+= form_for [@kegerator, @keg] do |form|
+  = form.label :keg_type_id
+  = form.select :keg_type_id, options_from_collection_for_select(KegType.all, :id, :name), :include_blank => true
+  %br
+  = form.label :beer_id
+  = form.select :beer_id, options_from_collection_for_select(Beer.all, :id, :to_s), :include_blank => true
+  %br
+  = link_to_function "Advanced options", "$('#advanced').toggle()"
+  %br
+  #advanced{:style => "display: none;"}
+    = form.label "Added at:"
+    = form.date_select :added_at
+  = form.submit "Drink Up!"
