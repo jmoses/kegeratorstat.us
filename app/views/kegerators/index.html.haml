@@ -28,4 +28,7 @@
                 = form.submit "It's empty :("
 
         - kegerator.kegs.finished.each do |keg|
-          %li= "A #{keg.keg_type.name} of #{keg.beer} was finished on #{keg.finished_at}"
+          %li
+            = "A #{keg.keg_type.name} of #{keg.beer} was finished on #{keg.finished_at}"
+            %p{:style => "text-indent: 15px;"}
+              It lasted #{((keg.finished_at - keg.added_at)).to_i} days, and you drank #{keg.consumed_per_day.round} pints a day.

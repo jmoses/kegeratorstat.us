@@ -1,4 +1,8 @@
 class Keg < ActiveRecord::Base
+  OUNCES_IN_A_GALLON = 128
+  OUNCES_IN_A_PINT = 16
+  OUNCES_IN_A_SIXPACK = ( 12 * 6 )
+
   belongs_to :keg_type
   belongs_to :kegerator
   belongs_to :beer
@@ -12,6 +16,14 @@ class Keg < ActiveRecord::Base
 
   def finished?
     finished_at.present?
+  end
+
+  def days_lasted
+    finished_at - added_at
+  end
+
+  def consumed_per_day( uom = :pint )
+    ((keg_type.capacity_in_gallons * OUNCES_IN_A_GALLON) / days_lasted ) / (uom == :pint ? OUNCES_IN_A_PINT : OUNCES_IN_A_SIXPACK)
   end
 
   protected
