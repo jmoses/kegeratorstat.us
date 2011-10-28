@@ -11,6 +11,7 @@ gem 'haml'
 gem 'inherited_resources'
 gem 'zurb-foundation'
 gem 'exceptional'
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 
 # Gems used only for assets and not required

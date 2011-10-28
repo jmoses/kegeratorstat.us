@@ -29,7 +29,8 @@
           %h3 Sidebar
           - if user_signed_in?
             %ul
-              %li= link_to "Kegerators", kegerators_path
+              %li= link_to "Everybody's beer", root_path
+              %li= link_to "Your Kegerators", kegerators_path
               %li= link_to "Account", edit_user_registration_path
               %li= link_to "Logout", destroy_user_session_path, :method => :delete
           - else

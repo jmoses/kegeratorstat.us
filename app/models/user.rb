@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates_uniqueness_of :login
+  validates_uniqueness_of :login, :email
   validates_presence_of :login
 
   # Setup accessible (or protected) attributes for your model
@@ -27,5 +27,9 @@ class User < ActiveRecord::Base
 
   def to_param
     login
+  end
+
+  def admin?
+    email == 'jon@burningbush.us'
   end
 end
