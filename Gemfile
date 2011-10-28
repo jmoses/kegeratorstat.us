@@ -10,6 +10,7 @@ gem 'devise'
 gem 'haml'
 gem 'inherited_resources'
 gem 'zurb-foundation'
+gem 'exceptional'
 
 
 # Gems used only for assets and not required
