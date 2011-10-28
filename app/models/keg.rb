@@ -23,7 +23,11 @@ class Keg < ActiveRecord::Base
   end
 
   def consumed_per_day( uom = :pint )
-    ((keg_type.capacity_in_gallons * OUNCES_IN_A_GALLON) / days_lasted ) / (uom == :pint ? OUNCES_IN_A_PINT : OUNCES_IN_A_SIXPACK)
+    (((keg_type.capacity_in_gallons * OUNCES_IN_A_GALLON) / days_lasted ) / (uom == :pint ? OUNCES_IN_A_PINT : OUNCES_IN_A_SIXPACK)).round
+  end
+
+  def had_beer_on?( date )
+    (added_at..finished_at).cover?(date)
   end
 
   protected

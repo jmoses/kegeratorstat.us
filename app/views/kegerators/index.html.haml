@@ -2,6 +2,20 @@
   Your Kegerators
   = link_to "add one", new_kegerator_path
 
+#stats
+  %p Here's how much you've been drinking lately.
+
+  %table
+    %thead
+      %tr
+        - 7.downto(0) do |days|
+          %th= days.days.ago.to_date.strftime("%a, %d")
+    %tbody
+      %tr
+        - current_user.drinking_stats.each do |pints|
+          %td #{pints} pints
+
+
 %ul
   - @kegerators.each do |kegerator|
     %li
