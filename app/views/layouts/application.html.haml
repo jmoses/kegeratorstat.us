@@ -7,16 +7,17 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
     
-    :javascript
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-122488-11']);
-      _gaq.push(['_trackPageview']);
+    - unless Rails.env.development?
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-122488-11']);
+        _gaq.push(['_trackPageview']);
 
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
 
   %body
     .container
@@ -43,6 +44,7 @@
                 %li= link_to "Signup!", new_user_registration_path
                         
 
+        - unless Rails.env.development?
           :javascript
             google_ad_client = "ca-pub-4153439595195957";
             /* Kegerator Stat.us */
@@ -51,6 +53,7 @@
             google_ad_height = 250;
             //-->
   
+          %h5 Advertisments (beer money)
           <script type="text/javascript"
           src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
           </script>

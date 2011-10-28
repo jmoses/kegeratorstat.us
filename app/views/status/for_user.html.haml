@@ -1,0 +1,10 @@
+%h2 What's on tap at the house of #{@user.login}
+
+- @user.kegerators.each do |kegerator|
+  %h3= kegerator.name
+  - if kegerator.kegs.not_finished.size.zero?
+    %strong IT'S EMPTY!!!! *GASP*
+  %ul
+    - kegerator.kegs.not_finished.each do |keg|
+      %li A delicious #{keg.keg_type.name} of #{keg.beer}
+      
