@@ -6,6 +6,7 @@ KegeratorstatUs::Application.routes.draw do
   resources :kegerators do
     resources :kegs
   end
+  resources :beer_requests, :only => [:new, :create]
 
   match 'status/:login' => 'status#for_user', :as => :status
   match 'content/:content' => "content#show", :as => :content

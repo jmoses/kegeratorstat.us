@@ -1,0 +1,8 @@
+%h2 Request a beer
+%p Yeah, I'm lazy. I'll only go out and add the beers I drink. Make me add a new one.
+
+= form_for @beer_request do |f|
+  = hidden_field_tag "beer_request[user_id]", current_user.id
+  = f.label :body, "About the beer. Brewery, name, URL, etc, etc"
+  = f.text_area :body
+  = f.submit "Request It!"

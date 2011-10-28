@@ -23,6 +23,11 @@
     .container
       .row
         .eight.columns
+          #messages
+            - %w( message success warning alert ).each do |key|
+              - if flash[key.to_sym]
+                .alert-box{:class => key}= flash[key.to_sym]
+
           = yield
 
         .four.columns
