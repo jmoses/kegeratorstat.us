@@ -2,6 +2,6 @@
 
 %ul
   - @kegs.each do |keg|
-    %li #{keg.user.email} #{keg.finished? ? 'finished' : 'added'} a #{keg.keg_type.name} of #{keg.beer}
+    %li #{link_to keg.user.login, status_path(keg.user)} #{keg.finished? ? 'finished' : 'added'} a #{keg.keg_type.name} of #{keg.beer}
 
 

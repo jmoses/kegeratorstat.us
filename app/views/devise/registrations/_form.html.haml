@@ -1,0 +1,20 @@
+= form_for resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => resource.new_record? ? :post : :put} do |f|
+  = devise_error_messages!
+
+  = f.label :email
+  = f.email_field :email, :class => "input-text"
+
+  = f.label :login
+  = f.text_field :login, :class => "input-text"
+
+  = f.label:password
+  = f.password_field :password, :placeholder => "Leave blank unless you want to change it", :class => "input-text"
+
+  = f.label :password_confirmation
+  = f.password_field :password_confirmation, :class => "input-text"
+
+  - unless resource.new_record?
+    = f.label :current_password
+    = f.password_field :current_password, :placeholder => "To confirm it's you", :class => "input-text"
+
+  = f.submit "Update"
