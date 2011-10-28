@@ -6,6 +6,7 @@ KegeratorstatUs::Application.routes.draw do
   end
 
   match 'status/:login' => 'status#for_user', :as => :status
+  match 'content/:content' => "content#show", :as => :content
 
   root :to => 'status#index'
 end

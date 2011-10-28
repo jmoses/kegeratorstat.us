@@ -42,6 +42,7 @@
               %ul
                 %li= link_to "Forgot your password?", new_password_path('user')
                 %li= link_to "Signup!", new_user_registration_path
+          = link_to "About", content_path(:about)
                         
 
           - unless Rails.env.development?
