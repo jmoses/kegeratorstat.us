@@ -13,6 +13,9 @@ class Keg < ActiveRecord::Base
 
   scope :finished, where("finished_at IS NOT NULL")
   scope :not_finished, where("finished_at IS NULL")
+  scope :not_finished_on, lambda {|date| 
+    where("(:date BETWEEN added_at AND finished_at AND finished_at IS NOT NULL) OR ( finished_at IS NULL AND added_at < :date)", :date => date)
+  }
 
   def finished?
     finished_at.present?
@@ -28,6 +31,18 @@ class Keg < ActiveRecord::Base
 
   def had_beer_on?( date )
     (added_at..finished_at).cover?(date)
+  end
+
+  def days_til_empty
+    estimated_lifetime - age
+  end
+
+  def age
+    (Date.today - added_at).to_i
+  end
+
+  def estimated_lifetime
+    ((keg_type.capacity_in_gallons * OUNCES_IN_A_GALLON / OUNCES_IN_A_PINT) / user.average_daily_consumption).floor
   end
 
   protected

@@ -2,20 +2,6 @@
   Your Kegerators
   = link_to "add one", new_kegerator_path
 
-#stats
-  %p Here's how much you've been drinking lately.
-
-  %table
-    %thead
-      %tr
-        - 7.downto(0) do |days|
-          %th= days.days.ago.to_date.strftime("%a, %d")
-    %tbody
-      %tr
-        - current_user.drinking_stats.each do |pints|
-          %td #{pints} pints
-
-
 %ul
   - @kegerators.each do |kegerator|
     %li
@@ -26,8 +12,8 @@
         - if kegerator.kegs.not_finished.size.zero?
           %li
             %strong NO BEER? WHAT?!?
-        - kegerator.kegs.not_finished.each do |keg|
-          %li
+        - kegerator.kegs.not_finished.limit(10).each do |keg|
+          %li.keg{:class => "left#{keg.days_til_empty}"}
             = "A #{keg.keg_type.name} of #{keg.beer} (#{keg.added_at})"
             = link_to_function "stuff", '$(this).next(".links").toggle()'
             .links{:style => "display: none;"}
@@ -46,3 +32,20 @@
             = "A #{keg.keg_type.name} of #{keg.beer} was finished on #{keg.finished_at}"
             %p{:style => "text-indent: 15px;"}
               It lasted #{((keg.finished_at - keg.added_at)).to_i} days, and you drank #{keg.consumed_per_day.round} pints a day.
+
+#stats
+  %p Here's how much you've been drinking lately.
+
+  %table
+    %thead
+      %tr
+        - 7.downto(0) do |days|
+          %th= days.days.ago.to_date.strftime("%a, %d")
+    %tbody
+      %tr
+        - current_user.drinking_stats.each do |stat|
+          %td #{stat.pints} pints#{'*' if stat.guesstimate}
+    %tfoot
+      %tr
+        %td{:colspan => 8} * means that we're just guess based on your drinking history and kegerator fullness.
+

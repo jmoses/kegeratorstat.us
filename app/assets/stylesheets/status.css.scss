@@ -1,3 +1,12 @@
 // Place all the styles related to the Status controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+li.keg {
+  border-left: 2px solid #fff;
+  padding-left: 3px;
+}
+
+li.keg.left3 {
+  border-color: #C00000;
+}
+

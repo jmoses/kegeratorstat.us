@@ -1,6 +1,8 @@
 class BeerRequestsController < ApplicationController
   inherit_resources
 
+  before_filter :authenticate_user!
+
   actions :new, :create
 
   def create

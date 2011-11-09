@@ -19,12 +19,40 @@ class User < ActiveRecord::Base
 
     kegs_full_in_range = kegs.where(:finished_at => (start_date..stop_date) )
 
+    avg_consumption = average_daily_consumption
+
     days_ago.downto(0).inject([]) do |stats, days|
       date = days.days.ago.to_date
-      stats << kegs_full_in_range.select {|k| k.had_beer_on?(date) }.inject(0) {|pints, keg| pints + keg.consumed_per_day }
+      
+      stat = DailyStat.new(:date => date)
+
+      stat.pints = kegs_full_in_range.select {|k| k.had_beer_on?(date) }.inject(0) {|pints, keg| pints + keg.consumed_per_day }
+      if (tapped = tapped_kegs(date)).size > 0
+        stat.pints += (tapped.size * avg_consumption)
+        stat.guesstimate = true
+      end
+
+
+      stats << stat
     end
   end
 
+  def average_daily_consumption( finished_kegs = kegs.finished.order(:finished_at).limit(10) )
+    pints = finished_kegs.map(&:consumed_per_day)
+
+    (pints.inject(0) {|sum, p| sum + p}.to_f / pints.size).ceil
+  end
+  # This needs to be a DB column, or memoized. This is probably a bitch of a data access call.
+
+  def tapped_kegs_on?( date = Date.today )
+    tapped_kegs(date).count > 0
+  end
+
+  def tapped_kegs( date = Date.today )
+    kegs.not_finished_on(date)
+  end
+
+  
   def to_param
     login
   end
