@@ -6,7 +6,11 @@ li.keg {
   padding-left: 3px;
 }
 
-li.keg.left3 {
+li.keg.almost-empty {
   border-color: #C00000;
+}
+
+li.keg.close-to-empty {
+  border-color: #C08C00;
 }
 

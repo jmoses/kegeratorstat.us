@@ -13,7 +13,7 @@
           %li
             %strong NO BEER? WHAT?!?
         - kegerator.kegs.not_finished.limit(10).each do |keg|
-          %li.keg{:class => "left#{keg.days_til_empty}"}
+          %li.keg{:class => fullness_class(keg)}
             = "A #{keg.keg_type.name} of #{keg.beer} (#{keg.added_at})"
             = link_to_function "stuff", '$(this).next(".links").toggle()'
             .links{:style => "display: none;"}
@@ -28,7 +28,7 @@
                 = form.submit "It's empty :("
 
         - kegerator.kegs.finished.each do |keg|
-          %li
+          %li.keg
             = "A #{keg.keg_type.name} of #{keg.beer} was finished on #{keg.finished_at}"
             %p{:style => "text-indent: 15px;"}
               It lasted #{((keg.finished_at - keg.added_at)).to_i} days, and you drank #{keg.consumed_per_day.round} pints a day.

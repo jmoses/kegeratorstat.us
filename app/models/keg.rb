@@ -34,7 +34,8 @@ class Keg < ActiveRecord::Base
   end
 
   def days_til_empty
-    estimated_lifetime - age
+    days = (estimated_lifetime - age)
+    days < 0 ? 0 : days
   end
 
   def age
