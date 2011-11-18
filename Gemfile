@@ -12,6 +12,11 @@ gem 'inherited_resources'
 gem 'zurb-foundation'
 gem 'exceptional'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'thin'
+
+group :development do
+  gem 'foreman'
+end
 
 
 # Gems used only for assets and not required
